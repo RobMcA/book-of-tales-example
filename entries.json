@@ -1,0 +1,56 @@
+[
+  {
+    "id": "1",
+    "title": "The Well of Echoes",
+    "body": "The road bends through gorse and thorn and ends at a low stone wall ringing an old well. The water within is dark and perfectly still. A child's iron cup lies on the rim, dry.\n\nAs you approach, you hear — faintly, as if from far down the shaft — a voice calling a name you almost recognize.",
+    "choices": [
+      { "label": "Call down into the well.", "goto": "2" },
+      { "label": "Draw water with the cup.", "goto": "3" },
+      { "label": "Leave the well and ride on.", "goto": "4" }
+    ]
+  },
+  {
+    "id": "2",
+    "title": "An Answer",
+    "body": "You lean over the stone and call. Your voice returns to you at once — and then again, late, changed. The second echo is a question, not a repetition: \"Who asks?\"\n\nThe hair lifts on your arms.",
+    "choices": [
+      { "label": "Give your true name.", "goto": "5" },
+      { "label": "Give a false name.", "goto": "6" },
+      { "label": "Say nothing and step back.", "goto": "4" }
+    ]
+  },
+  {
+    "id": "3",
+    "title": "The Cup",
+    "body": "The cup is lighter than iron should be. You lower it on its chain — longer than the well looks deep — and draw it up brimming. The water tastes of cold stone and, faintly, of salt, though you are a hundred leagues from any sea.\n\nWhen you set the cup down you see a single silver hair inside it, curled like a question mark.",
+    "choices": [
+      { "label": "Keep the hair and ride on.", "goto": "7" },
+      { "label": "Return the hair to the well.", "goto": "8" }
+    ]
+  },
+  {
+    "id": "4",
+    "title": "The Road Onward",
+    "body": "You remount and ride. Within a mile the gorse gives way to tilled land and the sound of the well is gone from your ears, though not, perhaps, from your memory.\n\n(End of encounter.)"
+  },
+  {
+    "id": "5",
+    "title": "Truly Named",
+    "body": "The well is silent for a long breath. Then the water far below brightens — not with sun, for the sky is grey — and a face looks up at you that is almost your own but older, and sadder, and kind.\n\n\"Then I will remember you,\" the face says, and is gone.\n\nYou ride away knowing you have been seen, and that somewhere, something now keeps your name like a coin in a purse. Whether that is blessing or burden is not yet clear.\n\n(End of encounter.)"
+  },
+  {
+    "id": "6",
+    "title": "Falsely Named",
+    "body": "The water stirs — the first movement you have seen in it. A laugh comes up, dry as old leaves. \"A lie for a lie, then.\"\n\nSomething in you feels lighter, as though a small truth has been taken out and replaced with a stone of the same weight. You cannot yet say what you have lost. Perhaps nothing. Perhaps a thing you needed.\n\n(End of encounter.)"
+  },
+  {
+    "id": "7",
+    "title": "The Hair",
+    "body": "You coil the silver hair in a scrap of cloth and tuck it into your belt pouch. As you ride on, the wind carries what might be a woman weeping, far behind you, and then nothing.\n\nThat night, beside your fire, the hair is still in the cloth. In the morning it is gone, and there is a fine line on the palm of your hand where no line was before.\n\n(End of encounter.)"
+  },
+  {
+    "id": "8",
+    "title": "Returned",
+    "body": "You let the hair fall back into the cup, and the cup back into the dark. For a long moment nothing. Then, far below, a sound like a held breath being let out.\n\nWhen you ride away you feel unaccountably lighter, as if some small debt — not yours, but one you were near enough to carry — has been paid on your behalf.\n\n(End of encounter.)"
+  }
+]

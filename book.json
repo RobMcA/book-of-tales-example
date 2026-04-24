@@ -1,0 +1,8 @@
+{
+  "schema": "book-of-infinite-tales/v1",
+  "title": "The Well of Echoes",
+  "author": "Example Author",
+  "version": "1.0.0",
+  "description": "An example Book of Tales encounter. Copy this repo to start your own book.",
+  "entries": "entries.json"
+}
