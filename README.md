@@ -6,25 +6,70 @@ This repository is a complete, working example book for the [Book of Infinite Ta
 
 ## Try this book
 
-In the Book of Infinite Tales app, load:
+In the Book of Infinite Tales app, paste:
 
 ```
 RobMcA/book-of-tales-example
 ```
 
-(Replace `RobMcA` with your username if you have forked the repo.)
+(Replace with your own fork's path once you've forked it.)
 
 ---
 
-## How to make your own book
+## How an encounter is structured
 
-A book is two JSON files: a **manifest** (`book.json`) and an **entries file** (`entries.json`). The repo must be **public** — files are fetched via `raw.githubusercontent.com`.
+In the game, a standard encounter flows through **two passages** (both with 4-digit numbers):
 
-### 1. Fork or copy this repo
+1. **Response passage** — the scene is described. The player is offered several **narrative responses**. Each response points to a *different* passage number.
+2. **Resolution passage** (one per response) — more narrative. The player is offered one or more **skill options** to resolve the encounter. They commit to a skill, learn the target number, roll, and read the matching success or failure result (with rewards) inline.
 
-Click **Fork** on GitHub, or copy `book.json` and `entries.json` into a new public repo.
+Some simple responses skip the skill check and go straight to a terminal **result passage**. That's fine — not every choice is a roll.
 
-### 2. Edit `book.json`
+```
+         ┌──────────────────────┐
+         │  Response passage    │
+         │  "You come upon..."  │
+         └──────┬───────┬───────┘
+                │       │
+    ┌───────────┘       └───────────────┐
+    ▼                                   ▼
+┌────────────────────┐            ┌────────────────┐
+│ Resolution passage │            │ Result passage │
+│  Use Piety (3):    │            │  "You ride on" │
+│   ✓ …  ✗ …         │            │  (terminal)    │
+│  Use Wisdom (4):   │            └────────────────┘
+│   ✓ …  ✗ …         │
+└────────────────────┘
+```
+
+---
+
+## Passage numbering conventions
+
+The official Book of Tales composes passage numbers from game state. You don't *have* to follow this scheme, but doing so makes your book feel right and lets it slot into existing components (encounter cards, feature cards, terrain, Ages).
+
+| Encounter type | Number formula | Example |
+|---|---|---|
+| **Age start** | `1000`, `2000`, `3000` | `1000` is read when Age 1 begins |
+| **Milieu** (terrain-based) | *Age-specific milieu base* + 2-digit terrain offset | Age 2 Mountain milieu: `2200 + 34` = `2234` |
+| **Character** | 100-multiple (the character's base) + 2-digit Feature card offset | Giant (`1200`) + Amorous (`05`) = `1205` |
+| **Location** | Pre-printed 4-digit number | `1500` (any age uses this same number) |
+
+Conventions authors typically follow:
+- `1xxx` → Age 1 (Golden Age)
+- `2xxx` → Age 2 (Quest of the Holy Grail)
+- `3xxx` → Age 3 (Final Wars)
+- `xx00` round-hundreds → Character cards (each character "owns" a 100-block)
+- `x2xx`–`x3xx` → Milieu passages (per-age base differs)
+- Custom locations → anywhere in the range that doesn't collide
+
+For custom books, use any string ids you want — but numeric ids sort naturally in the reader's entry picker. A common convention is to give each response option's resolution passage a consecutive number (`1234` → `1235`, `1236`, …).
+
+---
+
+## The two files
+
+### `book.json` (manifest)
 
 ```json
 {
@@ -37,119 +82,152 @@ Click **Fork** on GitHub, or copy `book.json` and `entries.json` into a new publ
 }
 ```
 
-- `schema` — must be exactly `"book-of-infinite-tales/v1"`.
-- `entries` — filename of your entries file, or an inline object of entries keyed by id.
+### `entries.json` (the passages)
 
-### 3. Edit `entries.json`
-
-This is a JSON array of **entry** objects. Each entry is one numbered passage.
+A JSON array of entries. Each entry is one passage.
 
 ---
 
 ## Entry reference
 
-### Minimal entry (no choices — terminal)
+Every entry has an `id` and `body`. Beyond that, what fields you use determines the passage's **type**:
 
-```json
-{
-  "id": "5",
-  "title": "The Road Onward",
-  "body": "You remount and ride on.\n\nDouble newlines create paragraph breaks."
-}
-```
+| Passage type | Required fields |
+|---|---|
+| **Response passage** | `body`, `responses[]` |
+| **Resolution passage** | `body`, `resolutions[]` |
+| **Result passage** (terminal) | `body`, optional `rewards` |
+| **Unusual encounter** | Any mix — `responses` + `resolutions` + `rewards` as needed |
 
-| Field | Required | Description |
-|---|---|---|
-| `id` | ✅ | Unique string. Numeric ids (`"1"`, `"42"`) sort naturally. |
-| `title` | — | Optional heading shown above the body. |
-| `body` | ✅ | Prose the reader reads aloud. `\n\n` = new paragraph. |
-| `romantic` | — | `true` marks entry as romantic content (displayed with ✦). |
-| `retinue` | — | `"beside"`, `"nearby"`, or `"absent"` — displayed as a scene note. |
-| `choices` | — | Omit (or leave empty) for a terminal entry. |
-| `rewards` | — | Reward block shown at the end of the entry. |
-
----
-
-## Choices
-
-Two kinds of choices exist: **simple** (no roll) and **checked** (skill/renown roll).
-
-### Simple choice — no roll
-
-```json
-{
-  "label": "Leave the well and ride on.",
-  "goto": "5"
-}
-```
-
-The reader narrates the label and turns directly to the `goto` entry.
-
-### Checked choice — skill or renown roll
-
-```json
-{
-  "label": "Call down into the well, trusting your faith to guide you.",
-  "check": {
-    "using": ["Piety", "Wisdom", "Spiritual"],
-    "target": 3,
-    "success": "2s",
-    "failure": "2f"
-  }
-}
-```
-
-The player picks one option from `using`, rolls (or compares), and the reader turns to `success` or `failure` based on the result.
+### Shared fields
 
 | Field | Description |
 |---|---|
-| `using` | Array of skills, categories, or renown types the player may choose from (see below). |
-| `target` | The difficulty — a fixed number, or `{ "base": 2, "addLocationNumber": true }` for variable. |
-| `success` | Entry id to turn to on success. |
-| `failure` | Entry id to turn to on failure. |
-
-Both choices support `"romantic": true` to mark optional romantic content.
+| `id` | Unique string. Numeric ids (`"1234"`) sort naturally in the picker. |
+| `title` | Optional heading shown above the body. |
+| `body` | Prose read aloud. `\n\n` separates paragraphs. |
+| `romantic` | `true` marks the entry itself as romantic (✦ badge in reader). |
+| `retinue` | `"beside"`, `"nearby"`, or `"absent"` — scene-setting note. |
+| `goto` | Optional continuation to another entry after this passage. |
 
 ---
 
-## Skills, categories, and renown
+## Response passages
 
-### The 12 skills
+A **response passage** offers narrative choices. Each response points to another passage (usually a resolution passage).
+
+```json
+{
+  "id": "1500",
+  "title": "The Well of Echoes",
+  "body": "The road bends through gorse and thorn and ends at an old well...",
+  "responses": [
+    {
+      "label": "You may call down into the well.",
+      "goto": "1501"
+    },
+    {
+      "label": "You may draw water with the cup.",
+      "goto": "1502"
+    },
+    {
+      "label": "* You may lean close and greet the voice tenderly.",
+      "romantic": true,
+      "goto": "1503"
+    },
+    {
+      "label": "You may leave and ride on.",
+      "goto": "1504"
+    }
+  ]
+}
+```
+
+Responses never have skill checks — that happens on the resolution passage they point to. Use a response passage for pure narrative branching.
+
+---
+
+## Resolution passages
+
+A **resolution passage** is where the skill check happens. It has one or more `resolutions` — each is one way to resolve the encounter.
+
+```json
+{
+  "id": "1501",
+  "title": "A Voice from Below",
+  "body": "You lean over the stone and call. Your voice returns — then again, changed: 'Who asks?'",
+  "resolutions": [
+    {
+      "label": "answer with your true name and let faith guide you",
+      "using": ["Piety", "Honor"],
+      "target": 3,
+      "success": {
+        "body": "A face looks up at you that is almost your own, but kinder...",
+        "rewards": {
+          "destiny": 2,
+          "renown": [{ "type": "Divinity", "delta": 1 }]
+        }
+      },
+      "failure": {
+        "body": "You cannot find the words. The water stills and loses interest.",
+        "rewards": {
+          "destiny": 1,
+          "renown": [{ "type": "Divinity", "delta": -1 }]
+        }
+      }
+    }
+  ]
+}
+```
+
+### Resolution option fields
+
+| Field | Description |
+|---|---|
+| `label` | Optional — narrative action the skill represents ("answer with your true name"). |
+| `using` | Array of skill names, categories, or renown types. The player picks one of these to use. |
+| `target` | The difficulty (see below). |
+| `romantic` | `true` marks this resolution option as romantic. |
+| `success` | Inline outcome (body + rewards) for a successful roll. |
+| `failure` | Inline outcome for a failed roll. |
+
+Both `success` and `failure` are objects with:
+
+| Field | Description |
+|---|---|
+| `body` | Prose read when this outcome occurs. |
+| `rewards` | Structured reward block (see below). |
+| `goto` | Optional continuation to another passage. |
+
+### Skills, categories, and renown
+
+The 12 canonical skill names:
 
 | Martial | Spiritual | Courtly | Wilderness |
 |---|---|---|---|
 | Warfare | Piety | Diplomacy | Nature Lore |
 | Sword & Shield | Wisdom | Cunning | Endure Hardship |
-| Mounted | Honor | *(+ 2 others)* | *(+ 2 others)* |
+| Mounted | Honor | *(+ 2 more)* | *(+ 2 more)* |
 | Hunting | Magic | | |
 
-Use the exact strings above in `using` arrays. Capitalisation matters.
+Use exact strings (capitalisation matters). You can also use:
+- A category — `"Martial"`, `"Spiritual"`, `"Courtly"`, or `"Wilderness"` — to allow any skill within it
+- A renown type — `"Divinity"`, `"Romance"`, or `"Villainy"` — for a renown check (no die roll, compares Rank count to target)
 
-### Skill categories
-
-Use `"Martial"`, `"Spiritual"`, `"Courtly"`, or `"Wilderness"` to allow any skill within that category.
-
-### Renown types
-
-Use `"Divinity"`, `"Romance"`, or `"Villainy"` to allow a renown check instead of a skill roll.
-For renown checks the player compares their Rank count (no die roll) against the target.
-
----
-
-## Resolution targets
+### Resolution targets
 
 | Format | Meaning | Example |
 |---|---|---|
 | A plain number | Fixed difficulty | `3` |
-| `{ "base": N, "addLocationNumber": true }` | Variable: base + Location # of current map space (1–6) | `{ "base": 2, "addLocationNumber": true }` |
+| `{ "base": N, "addLocationNumber": true }` | Variable: `N + Location #` of current map space (1–6) | `{ "base": 2, "addLocationNumber": true }` |
 
-Variable targets make an encounter harder in dangerous terrain but also reward success more — use them when the terrain should matter.
+Variable targets make dangerous terrain harder but also reward success more — the game pattern for milieu passages is often `base + Location #`.
 
 ---
 
 ## Rewards
 
-Add a `rewards` block to any resolution entry. All fields are optional; include only what applies. In the reader they display as a styled bracket: **[Gain 2 Destiny | Gain 1 Rank of Divinity]**
+Rewards render as an italic bracket: **[Gain 2 Destiny | Gain 1 Rank of Divinity]**
 
 ```json
 "rewards": {
@@ -159,6 +237,7 @@ Add a `rewards` block to any resolution entry. All fields are optional; include 
     { "type": "Villainy", "delta": -1 }
   ],
   "skills": [
+    { "name": "Piety" },
     { "category": "Spiritual", "count": 1 }
   ],
   "treasures": 1,
@@ -171,25 +250,25 @@ Add a `rewards` block to any resolution entry. All fields are optional; include 
 }
 ```
 
-| Field | Type | Description |
+| Field | Type | Meaning |
 |---|---|---|
-| `destiny` | number or `"location_number"` | Destiny Points earned. `"location_number"` = equals the Location # of the current space. |
-| `renown` | array of `{type, delta}` | Positive delta = gain ranks; negative = lose ranks. |
-| `skills` | array | Specific skill: `{"name": "Piety"}`. Category choice: `{"category": "Spiritual", "count": 1}`. |
-| `treasures` | number or string | Number = draw that many at random. String = search for the named card. |
-| `statuses` | array of `{action, name}` | `"gain"` → Become *Name*. `"lose"` → remove the status early. |
+| `destiny` | number or `"location_number"` | Destiny Points. `"location_number"` = equals the current Location #. |
+| `renown` | array of `{type, delta}` | Positive = gain, negative = lose. |
+| `skills` | array | Specific: `{"name": "Piety"}`. Category choice: `{"category": "Spiritual", "count": 1}`. |
+| `treasures` | number or string | Number = draw that many random cards. String = named card. |
+| `statuses` | array of `{action, name}` | `"gain"` → Become *Name*. `"lose"` → remove early. |
 | `storyToken` | string | Name of the Story Token gained. |
-| `movement` | number or `"free"` | Bonus movement spaces after the encounter. |
+| `movement` | number or `"free"` | Bonus map movement. |
 
 ### Even failures earn something
 
-In the Arthurian tradition, knights grow as much from failure as from success. Every resolution entry — success *and* failure — should give at least a small positive reward alongside any negative consequence.
+In the Arthurian tradition, knights grow as much from failure as from success. Every outcome — success *and* failure — should give at least a small positive reward alongside any negative consequence.
 
 ---
 
 ## Retinue presence
 
-The Book of Tales specifies whether the knight's retainers are present. Use the optional `retinue` field:
+Some passages specify whether the knight's retainers are present:
 
 ```json
 "retinue": "beside"
@@ -205,40 +284,25 @@ The Book of Tales specifies whether the knight's retainers are present. Use the 
 
 ## Romantic content
 
-Prefix any choice label with `*` **and** set `"romantic": true` on that choice to mark it as optional romantic content. Players may choose to ignore these choices and any entries marked `"romantic": true`.
+Prefix any response label with `*` **and** set `"romantic": true` on that response (or resolution, or whole entry) to mark it as optional romantic content. The reader renders it in a distinctive colour, and players may choose to skip such content.
 
 ```json
 {
-  "label": "* Lean over the rim and call out a tender greeting.",
+  "label": "* You may greet the voice as one greets a beloved.",
   "romantic": true,
-  "check": { ... }
+  "goto": "1503"
 }
 ```
 
 ---
 
-## Passage numbering conventions
+## Unusual encounters
 
-The official game uses passages **1000–3000** grouped by Age (1xxx = Age 1, 2xxx = Age 2, 3xxx = Age 3). For custom books you can use any string ids you like, but numeric ids sorted naturally are easiest to navigate at the table:
+Some encounters don't follow the standard response → resolution → result flow. For those, just mix fields as needed on a single entry:
 
-- `"1"`, `"1s"`, `"1f"` — use suffixes for success/failure branches off the same scene
-- `"100"` through `"199"` — group related encounters in ranges
-
----
-
-## Multiple books in one repo
-
-You can host several books in one repository by putting each in its own subdirectory:
-
-```
-my-repo/
-  golden-age/book.json
-  golden-age/entries.json
-  grail-quest/book.json
-  grail-quest/entries.json
-```
-
-Load the second book with: `your-username/my-repo@main/grail-quest`
+- A response passage that goes straight to a result with no skill needed → just use `responses` with `goto` pointing to simple result entries.
+- A passage that offers skill options directly without a prior narrative branch → skip the response passage and put `resolutions` on the first passage.
+- A passage with a reward block and a `goto` continuation → use `rewards` plus `goto`.
 
 ---
 
@@ -251,6 +315,20 @@ git push
 ```
 
 Share the path `your-username/your-repo` with players. They paste it into the Book of Infinite Tales reader.
+
+### Multiple books in one repo
+
+Put each in its own subdirectory:
+
+```
+my-repo/
+  golden-age/book.json
+  golden-age/entries.json
+  grail-quest/book.json
+  grail-quest/entries.json
+```
+
+Load the second with: `your-username/my-repo@main/grail-quest`
 
 ---
 

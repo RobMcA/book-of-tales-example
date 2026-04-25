@@ -1,128 +1,120 @@
 [
   {
-    "id": "1",
+    "id": "1500",
     "title": "The Well of Echoes",
     "retinue": "nearby",
     "body": "The road bends through gorse and thorn and ends at a low stone wall ringing an old well. The water within is dark and perfectly still. A child's iron cup lies on the rim, dry.\n\nAs you approach, you hear — faintly, as if from far down the shaft — a voice calling a name you almost recognise.",
-    "choices": [
+    "responses": [
+      { "label": "You may call down into the well and try to understand the voice.", "goto": "1501" },
+      { "label": "You may draw water with the cup to see what the well gives up.", "goto": "1502" },
+      { "label": "* You may lean over the rim and greet the voice as one greets a beloved.", "romantic": true, "goto": "1503" },
+      { "label": "You may leave the well and ride on.", "goto": "1504" }
+    ]
+  },
+  {
+    "id": "1501",
+    "title": "A Voice from Below",
+    "body": "You lean over the stone and call. Your voice returns at once — and then again, late, changed. A question, not an echo: \"Who asks?\"\n\nThe hair lifts on your arms.",
+    "resolutions": [
       {
-        "label": "Call down into the well, trusting your faith to guide you.",
-        "check": {
-          "using": ["Piety", "Wisdom", "Spiritual"],
-          "target": 3,
-          "success": "2s",
-          "failure": "2f"
+        "label": "answer with your true name and let faith guide you",
+        "using": ["Piety", "Honor"],
+        "target": 3,
+        "success": {
+          "body": "You give your name without hesitation. A long silence follows. Then the water far below brightens — not with sun, for the sky is grey — and a face looks up at you that is almost your own but older, and sadder, and kind.\n\n\"Then I will remember you,\" the face says, and is gone.",
+          "rewards": {
+            "destiny": 2,
+            "renown": [{ "type": "Divinity", "delta": 1 }]
+          }
+        },
+        "failure": {
+          "body": "You open your mouth and cannot find the words. After a long moment, the water stirs once and goes perfectly still. Whatever was listening has lost interest.",
+          "rewards": {
+            "destiny": 1,
+            "renown": [{ "type": "Divinity", "delta": -1 }]
+          }
         }
       },
       {
-        "label": "Draw water with the cup and study what comes up.",
-        "check": {
-          "using": ["Nature Lore", "Magic", "Wilderness"],
-          "target": { "base": 2, "addLocationNumber": true },
-          "success": "3s",
-          "failure": "3f"
+        "label": "puzzle out the meaning before speaking",
+        "using": ["Wisdom", "Magic", "Spiritual"],
+        "target": { "base": 2, "addLocationNumber": true },
+        "success": {
+          "body": "You recognise the voice — not its owner, but its kind. A guardian of names. You answer with the old forms, and the water ripples once in acknowledgement. A cold silver ring rises to the surface and bobs there, waiting for you to take it.",
+          "rewards": {
+            "destiny": "location_number",
+            "treasures": "Ring of the Well",
+            "storyToken": "Named at the Well"
+          }
+        },
+        "failure": {
+          "body": "You take too long to think. The second echo comes again, sharper — \"Who asks?\" — and when you still do not answer, something beneath the water laughs without warmth. You step back from the rim, unsettled.",
+          "rewards": {
+            "destiny": 1,
+            "statuses": [{ "action": "gain", "name": "Obsessed" }]
+          }
         }
-      },
-      {
-        "label": "* Lean over the rim and call out a tender greeting.",
-        "romantic": true,
-        "check": {
-          "using": ["Diplomacy", "Romance"],
-          "target": 4,
-          "success": "4s",
-          "failure": "4f"
-        }
-      },
-      {
-        "label": "Leave the well and ride on.",
-        "goto": "5"
       }
     ]
   },
   {
-    "id": "2s",
-    "title": "Truly Named",
-    "body": "You lean over the stone and call into the dark. Your voice returns at once — and then again, changed. A question, not an echo: \"Who asks?\"\n\nYou give your name without hesitation. A long silence follows. Then the water far below brightens — not with sun, for the sky is grey — and a face looks up at you that is almost your own but older, and sadder, and kind.\n\n\"Then I will remember you,\" the face says, and is gone.",
-    "rewards": {
-      "destiny": 2,
-      "renown": [{ "type": "Divinity", "delta": 1 }]
-    }
-  },
-  {
-    "id": "2f",
-    "title": "Silence Below",
-    "body": "You lean over the stone and call. Your voice comes back changed — a question, not an echo: \"Who asks?\"\n\nYou open your mouth and cannot find the words. After a long moment, the water stirs once and goes perfectly still. Whatever was listening has lost interest.\n\nYou ride away knowing something was offered and you were not ready to receive it.",
-    "rewards": {
-      "destiny": 1,
-      "renown": [{ "type": "Divinity", "delta": -1 }]
-    }
-  },
-  {
-    "id": "3s",
+    "id": "1502",
     "title": "The Cup",
-    "body": "The cup is lighter than iron should be. You lower it on its chain — longer than the well looks deep — and draw it up brimming. The water tastes of cold stone and, faintly, of salt, though you are a hundred leagues from any sea.\n\nWhen you set the cup down you see a single silver hair inside it, curled like a question mark. You sense it is important.",
-    "choices": [
+    "body": "The cup is lighter than iron should be. You lower it on its chain — longer than the well looks deep — and draw it up. The water within tastes of cold stone and, faintly, of salt, though you are a hundred leagues from any sea.",
+    "resolutions": [
       {
-        "label": "Keep the hair — it may prove useful.",
-        "goto": "6k"
-      },
-      {
-        "label": "Return the hair to the well.",
-        "goto": "6r"
+        "label": "read what you find in the cup",
+        "using": ["Nature Lore", "Magic", "Wilderness"],
+        "target": { "base": 3, "addLocationNumber": true },
+        "success": {
+          "body": "You see a single silver hair curled in the cup like a question mark. You understand at once — a debt that is not yours, waiting for someone to carry it. You return the hair to the dark with a short prayer, and ride away lighter than you came.",
+          "rewards": {
+            "destiny": 2,
+            "renown": [{ "type": "Divinity", "delta": 1 }]
+          }
+        },
+        "failure": {
+          "body": "You see nothing you can make sense of. You pocket a silver hair that was floating there — perhaps a keepsake, perhaps a trophy. That night, beside your fire, the hair is gone from your pouch and a fine new line has been drawn on the palm of your hand.",
+          "rewards": {
+            "destiny": 1,
+            "statuses": [{ "action": "gain", "name": "Accursed" }],
+            "storyToken": "The Silver Hair"
+          }
+        }
       }
     ]
   },
   {
-    "id": "3f",
-    "title": "Dark Water",
-    "body": "The cup is heavier than it looks. You lower it into the well and draw it up, but the chain slips from your fingers and the cup clatters back into the dark. After a long moment you hear a distant splash.\n\nSomething in the silence that follows feels deliberate. You are not welcome here.",
-    "rewards": {
-      "destiny": 1,
-      "statuses": [{ "action": "gain", "name": "Accursed" }]
-    }
-  },
-  {
-    "id": "4s",
-    "title": "An Answer",
+    "id": "1503",
+    "title": "A Tender Greeting",
     "romantic": true,
-    "body": "You lean close and call down something warm and wordless. A long pause. Then laughter rises from the well — bright, surprised, not unkind.\n\n\"A bold one,\" the voice says. \"Come back when you have earned a name worth calling.\"\n\nThe water stills. But you find you are smiling, and your heart is lighter than it was.",
-    "rewards": {
-      "destiny": 2,
-      "renown": [{ "type": "Romance", "delta": 1 }]
-    }
+    "body": "You lean close and call down something warm and wordless — a greeting for a lover, not a stranger. A long pause. Then the well answers, and the answer is not a voice but a feeling, pressed gently against your chest like a hand.",
+    "resolutions": [
+      {
+        "label": "open your heart to whatever is below",
+        "using": ["Diplomacy", "Romance"],
+        "target": 4,
+        "romantic": true,
+        "success": {
+          "body": "Laughter rises from the well — bright, surprised, not unkind.\n\n\"A bold one,\" the voice says. \"Come back when you have earned a name worth calling.\"\n\nThe water stills. But you find you are smiling, and your heart is lighter than it was.",
+          "rewards": {
+            "destiny": 2,
+            "renown": [{ "type": "Romance", "delta": 1 }]
+          }
+        },
+        "failure": {
+          "body": "You call out with all the warmth you can muster. The well sends your words back to you unchanged. Whatever is down there, it is not charmed by flattery. You straighten, cheeks burning, and mount your horse in silence.",
+          "rewards": {
+            "destiny": 1,
+            "renown": [{ "type": "Romance", "delta": -1 }]
+          }
+        }
+      }
+    ]
   },
   {
-    "id": "4f",
-    "title": "No Answer",
-    "romantic": true,
-    "body": "You call out with all the warmth you can muster. The well sends your words back to you unchanged. Whatever is down there, it is not charmed by flattery.\n\nYou straighten, cheeks burning, and mount your horse in silence.",
-    "rewards": {
-      "destiny": 1,
-      "renown": [{ "type": "Romance", "delta": -1 }]
-    }
-  },
-  {
-    "id": "5",
+    "id": "1504",
     "title": "The Road Onward",
     "body": "You remount and ride. Within a mile the gorse gives way to tilled land and the sound of the well is gone from your ears, though not, perhaps, from your memory.\n\n(End of encounter.)"
-  },
-  {
-    "id": "6k",
-    "title": "The Hair Kept",
-    "body": "You coil the silver hair in a scrap of cloth and tuck it into your belt pouch. As you ride on, the wind carries what might be a woman weeping, far behind you, and then nothing.\n\nThat night, beside your fire, the hair is still in the cloth. In the morning it is gone, and there is a fine line on the palm of your hand where no line was before.\n\n(End of encounter.)",
-    "rewards": {
-      "destiny": "location_number",
-      "statuses": [{ "action": "gain", "name": "Obsessed" }],
-      "storyToken": "The Silver Hair"
-    }
-  },
-  {
-    "id": "6r",
-    "title": "The Hair Returned",
-    "body": "You let the hair fall back into the cup, and the cup back into the dark. For a long moment, nothing. Then, far below, a sound like a held breath being let out.\n\nWhen you ride away you feel unaccountably lighter, as if some small debt — not yours, but one you were near enough to carry — has been paid on your behalf.\n\n(End of encounter.)",
-    "rewards": {
-      "destiny": 2,
-      "renown": [{ "type": "Divinity", "delta": 1 }]
-    }
   }
 ]
