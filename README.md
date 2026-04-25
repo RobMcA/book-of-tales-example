@@ -335,13 +335,13 @@ All fields inside `structure` are optional — include only what your book suppo
 
 ```json
 "ages": [
-  { "id": "1", "name": "Golden Age of Camelot", "startPassage": "1000" },
-  { "id": "2", "name": "Quest of the Holy Grail", "startPassage": "2000" },
-  { "id": "3", "name": "Final Wars of Britain",   "startPassage": "3000" }
+  { "id": "1", "name": "Golden Age of Camelot",  "startPassage": "1000", "milieuBase": 2200 },
+  { "id": "2", "name": "Quest of the Holy Grail", "startPassage": "2000", "milieuBase": 2300 },
+  { "id": "3", "name": "Final Wars of Britain",   "startPassage": "3000", "milieuBase": 2400 }
 ]
 ```
 
-The picker shows age buttons in a row. `startPassage` is the entry read when that age begins.
+The picker shows age buttons in a row. `startPassage` is the entry read when that age begins. `milieuBase` is the number added to a Milieu card's terrain offset to produce the passage id (required if your book uses Milieu encounters).
 
 ### Terrains
 
@@ -403,15 +403,25 @@ The picker shows features first, then characters (because in the game you draw a
   {
     "id": "strange-beast",
     "name": "Strange Beast",
-    "passages": {
-      "1": { "city": "1125", "forest": "1226", "mountain": "1329" },
-      "2": { "city": "2125", "forest": "2226", "mountain": "2329" }
+    "terrainOffsets": {
+      "city":     25,
+      "forest":   26,
+      "mountain": 29,
+      "plains":   22
     }
   }
 ]
 ```
 
-`passages[ageId][terrainId]` = the entry id for that combination. You can omit age/terrain combinations your book doesn't cover — the picker will mark them unavailable.
+Each terrain has a 2-digit **offset**. The picker computes the passage as:
+
+```
+passage = age.milieuBase + milieu.terrainOffsets[terrain]
+```
+
+For example: Age 2 milieuBase `2200` + Strange Beast mountain offset `29` = passage **2229**.
+
+You only need to write entries at those computed passage ids. Terrains without an offset declared are shown as unavailable in the picker.
 
 ### Quests
 

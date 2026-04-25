@@ -7,9 +7,9 @@
   "entries": "entries.json",
   "structure": {
     "ages": [
-      { "id": "1", "name": "Golden Age of Camelot", "startPassage": "1000" },
-      { "id": "2", "name": "Quest of the Holy Grail", "startPassage": "2000" },
-      { "id": "3", "name": "Final Wars of Britain", "startPassage": "3000" }
+      { "id": "1", "name": "Golden Age of Camelot",  "startPassage": "1000", "milieuBase": 1500 },
+      { "id": "2", "name": "Quest of the Holy Grail", "startPassage": "2000", "milieuBase": 2500 },
+      { "id": "3", "name": "Final Wars of Britain",   "startPassage": "3000", "milieuBase": 3500 }
     ],
     "terrains": [
       { "id": "city",     "name": "City" },
@@ -44,23 +44,12 @@
       {
         "id": "echoing-well",
         "name": "The Echoing Well",
-        "passages": {
-          "1": {
-            "city":     "1500",
-            "forest":   "1501",
-            "mountain": "1502",
-            "plains":   "1500",
-            "swamp":    "1501",
-            "sea":      "1504"
-          },
-          "2": {
-            "city":     "2500",
-            "forest":   "1501",
-            "mountain": "1502",
-            "plains":   "2500",
-            "swamp":    "1501",
-            "sea":      "1504"
-          }
+        "terrainOffsets": {
+          "sea":      0,
+          "plains":   1,
+          "forest":   1,
+          "swamp":    1,
+          "mountain": 2
         }
       }
     ],
