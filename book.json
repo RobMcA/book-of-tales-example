@@ -55,6 +55,7 @@
     ],
     "quests": [
       { "id": "name-the-well", "name": "Name the Well", "passage": "1500" }
-    ]
+    ],
+    "epiloguePassage": "9999"
   }
 }
