@@ -306,6 +306,125 @@ Some encounters don't follow the standard response → resolution → result flo
 
 ---
 
+## Game structure — the `structure` section
+
+Adding a `structure` section to `book.json` enables the **encounter picker**: an in-app flow that lets players select their current age and encounter card type (Character, Location, Milieu, Quest) and navigates directly to the right passage.
+
+Without `structure`, the app still works — players type a passage number directly.
+
+```json
+{
+  "schema": "book-of-infinite-tales/v1",
+  "title": "...",
+  "entries": "entries.json",
+  "structure": {
+    "ages": [...],
+    "terrains": [...],
+    "features": [...],
+    "characters": [...],
+    "locations": [...],
+    "milieus": [...],
+    "quests": [...]
+  }
+}
+```
+
+All fields inside `structure` are optional — include only what your book supports.
+
+### Ages
+
+```json
+"ages": [
+  { "id": "1", "name": "Golden Age of Camelot", "startPassage": "1000" },
+  { "id": "2", "name": "Quest of the Holy Grail", "startPassage": "2000" },
+  { "id": "3", "name": "Final Wars of Britain",   "startPassage": "3000" }
+]
+```
+
+The picker shows age buttons in a row. `startPassage` is the entry read when that age begins.
+
+### Terrains
+
+```json
+"terrains": [
+  { "id": "city",     "name": "City" },
+  { "id": "forest",   "name": "Forest" },
+  { "id": "mountain", "name": "Mountain" },
+  { "id": "plains",   "name": "Plains" },
+  { "id": "swamp",    "name": "Swamp" },
+  { "id": "sea",      "name": "Sea" }
+]
+```
+
+Used for Milieu encounter selection. Declare only the terrains your milieus support.
+
+### Features and Characters
+
+Feature cards have a 2-digit offset. Character cards have a base number that is a multiple of 100. The app adds them together to produce the passage number.
+
+```json
+"features": [
+  { "id": "amorous", "name": "Amorous", "offset": 5 },
+  { "id": "lost",    "name": "Lost",    "offset": 12 }
+],
+"characters": [
+  { "id": "giant",  "name": "Giant",    "base": 1900 },
+  { "id": "hermit", "name": "The Hermit", "base": 1200 }
+]
+```
+
+Giant + Amorous → `1900 + 5 = 1905`. That entry must exist in your book.
+
+The picker shows features first, then characters (because in the game you draw a character card, then a feature card — the feature is drawn second but combined first to form the number).
+
+### Locations
+
+```json
+"locations": [
+  {
+    "id": "tintagel",
+    "name": "Tintagel",
+    "passage": "1524",
+    "visitPassages": {
+      "1": "1524",
+      "2": "2524",
+      "3": "3524"
+    }
+  }
+]
+```
+
+`passage` is read when the Location card is first drawn. `visitPassages` maps age id → the passage read when visiting the Place of Power during that age. The picker shows both options once the player selects a location.
+
+### Milieus
+
+```json
+"milieus": [
+  {
+    "id": "strange-beast",
+    "name": "Strange Beast",
+    "passages": {
+      "1": { "city": "1125", "forest": "1226", "mountain": "1329" },
+      "2": { "city": "2125", "forest": "2226", "mountain": "2329" }
+    }
+  }
+]
+```
+
+`passages[ageId][terrainId]` = the entry id for that combination. You can omit age/terrain combinations your book doesn't cover — the picker will mark them unavailable.
+
+### Quests
+
+```json
+"quests": [
+  { "id": "q1", "name": "Seek the Hermit's Blessing", "passage": "1800" }
+]
+```
+
+One passage per quest. The picker shows the quest list and navigates directly when selected.
+
+---
+
 ## Committing and sharing
 
 ```

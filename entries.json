@@ -1,5 +1,20 @@
 [
   {
+    "id": "1000",
+    "title": "The Golden Age of Camelot Begins",
+    "body": "The great hall of Camelot blazes with torchlight and laughter. Arthur surveys his knights with quiet pride. The roads of Britain lie open before you — and the Well is out there somewhere, waiting.\n\nGo forth. Adventure awaits."
+  },
+  {
+    "id": "2000",
+    "title": "The Quest of the Holy Grail Begins",
+    "body": "The Grail appeared at Pentecost and vanished before anyone could grasp it. In its wake, the land feels altered — as if something that was sleeping has woken, and something that was waking has gone to sleep.\n\nThe Well of Echoes, you have heard, is louder now than it was."
+  },
+  {
+    "id": "3000",
+    "title": "The Final Wars of Britain Begin",
+    "body": "The realm is fracturing. Armies move on roads that were made for pilgrims. And yet — the Well still stands. Some say the voice in it has changed. Some say it now speaks in names of the dead.\n\nYou ride toward it anyway."
+  },
+  {
     "id": "1500",
     "title": "The Well of Echoes",
     "retinue": "nearby",
@@ -116,5 +131,27 @@
     "id": "1504",
     "title": "The Road Onward",
     "body": "You remount and ride. Within a mile the gorse gives way to tilled land and the sound of the well is gone from your ears, though not, perhaps, from your memory.\n\n(End of encounter.)"
+  },
+  {
+    "id": "2500",
+    "title": "The Well of Echoes — Age 2",
+    "retinue": "nearby",
+    "body": "The well is exactly where you remember it, but the world around it has changed. The gorse is grey. The stone of the rim is darker, as though something has been seeping into it. The voice you heard before is still there — but now it speaks more urgently.\n\n\"You came back,\" it says. \"Good. There is less time than there was.\"",
+    "responses": [
+      { "label": "You may ask what it means by less time.", "goto": "1501" },
+      { "label": "You may draw water again and see what it gives you now.", "goto": "1502" },
+      { "label": "You may leave — you have enough to do without riddles.", "goto": "1504" }
+    ]
+  },
+  {
+    "id": "3500",
+    "title": "The Well of Echoes — Age 3",
+    "retinue": "absent",
+    "body": "The road to the well is overgrown. You find it by memory, not by landmark. When you arrive, the stone wall has partially collapsed. The cup is gone.\n\nBut the voice is still there. It is quieter now, and it sounds tired.",
+    "responses": [
+      { "label": "You may lean over the broken rim and call down.", "goto": "1501" },
+      { "label": "You may sit beside the ruin and simply listen.", "goto": "1502" },
+      { "label": "You may say your farewell and ride on.", "goto": "1504" }
+    ]
   }
 ]

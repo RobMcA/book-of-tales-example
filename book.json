@@ -2,7 +2,70 @@
   "schema": "book-of-infinite-tales/v1",
   "title": "The Well of Echoes",
   "author": "Example Author",
-  "version": "1.0.0",
-  "description": "An example Book of Tales encounter. Copy this repo to start your own book.",
-  "entries": "entries.json"
+  "version": "2.0.0",
+  "description": "An example Book of Tales encounter demonstrating the full schema — response/resolution passages, encounter picker, and game structure.",
+  "entries": "entries.json",
+  "structure": {
+    "ages": [
+      { "id": "1", "name": "Golden Age of Camelot", "startPassage": "1000" },
+      { "id": "2", "name": "Quest of the Holy Grail", "startPassage": "2000" },
+      { "id": "3", "name": "Final Wars of Britain", "startPassage": "3000" }
+    ],
+    "terrains": [
+      { "id": "city",     "name": "City" },
+      { "id": "forest",   "name": "Forest" },
+      { "id": "mountain", "name": "Mountain" },
+      { "id": "plains",   "name": "Plains" },
+      { "id": "swamp",    "name": "Swamp" },
+      { "id": "sea",      "name": "Sea" }
+    ],
+    "features": [
+      { "id": "amorous",  "name": "Amorous",   "offset": 0 },
+      { "id": "lost",     "name": "Lost",       "offset": 1 },
+      { "id": "proud",    "name": "Proud",      "offset": 2 },
+      { "id": "grieving", "name": "Grieving",   "offset": 3 }
+    ],
+    "characters": [
+      { "id": "well-guardian", "name": "The Well Guardian", "base": 1500 }
+    ],
+    "locations": [
+      {
+        "id": "well-of-echoes",
+        "name": "The Well of Echoes",
+        "passage": "1500",
+        "visitPassages": {
+          "1": "1500",
+          "2": "2500",
+          "3": "3500"
+        }
+      }
+    ],
+    "milieus": [
+      {
+        "id": "echoing-well",
+        "name": "The Echoing Well",
+        "passages": {
+          "1": {
+            "city":     "1500",
+            "forest":   "1501",
+            "mountain": "1502",
+            "plains":   "1500",
+            "swamp":    "1501",
+            "sea":      "1504"
+          },
+          "2": {
+            "city":     "2500",
+            "forest":   "1501",
+            "mountain": "1502",
+            "plains":   "2500",
+            "swamp":    "1501",
+            "sea":      "1504"
+          }
+        }
+      }
+    ],
+    "quests": [
+      { "id": "name-the-well", "name": "Name the Well", "passage": "1500" }
+    ]
+  }
 }
