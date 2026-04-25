@@ -1,0 +1,53 @@
+{
+  "ages": [
+    { "id": "1", "name": "Golden Age of Camelot",  "startPassage": "1000", "milieuBase": 1500 },
+    { "id": "2", "name": "Quest of the Holy Grail", "startPassage": "2000", "milieuBase": 2500 },
+    { "id": "3", "name": "Final Wars of Britain",   "startPassage": "3000", "milieuBase": 3500 }
+  ],
+  "terrains": [
+    { "id": "city",     "name": "City" },
+    { "id": "forest",   "name": "Forest" },
+    { "id": "mountain", "name": "Mountain" },
+    { "id": "plains",   "name": "Plains" },
+    { "id": "swamp",    "name": "Swamp" },
+    { "id": "sea",      "name": "Sea" }
+  ],
+  "features": [
+    { "id": "amorous",  "name": "Amorous",   "offset": 0 },
+    { "id": "lost",     "name": "Lost",       "offset": 1 },
+    { "id": "proud",    "name": "Proud",      "offset": 2 },
+    { "id": "grieving", "name": "Grieving",   "offset": 3 }
+  ],
+  "characters": [
+    { "id": "well-guardian", "name": "The Well Guardian", "base": 1500 }
+  ],
+  "locations": [
+    {
+      "id": "well-of-echoes",
+      "name": "The Well of Echoes",
+      "passage": "1500",
+      "visitPassages": {
+        "1": "1500",
+        "2": "2500",
+        "3": "3500"
+      }
+    }
+  ],
+  "milieus": [
+    {
+      "id": "echoing-well",
+      "name": "The Echoing Well",
+      "terrainOffsets": {
+        "sea":      0,
+        "plains":   1,
+        "forest":   1,
+        "swamp":    1,
+        "mountain": 2
+      }
+    }
+  ],
+  "quests": [
+    { "id": "name-the-well", "name": "Name the Well", "passage": "1500" }
+  ],
+  "epiloguePassage": "9999"
+}

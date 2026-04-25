@@ -69,7 +69,9 @@ For custom books, use any string ids you want — but numeric ids sort naturally
 
 ## The two files
 
-### `book.json` (manifest)
+### `book.json` (the book)
+
+Contains the book's metadata and all its passages:
 
 ```json
 {
@@ -78,13 +80,33 @@ For custom books, use any string ids you want — but numeric ids sort naturally
   "author": "Your Name",
   "version": "1.0.0",
   "description": "One sentence about your book.",
-  "entries": "entries.json"
+  "components": "components.json",
+  "entries": [
+    { "id": "1000", "title": "Age 1 Begins", "body": "..." },
+    { "id": "1500", "title": "The Encounter", "body": "...", "responses": [...] }
+  ]
 }
 ```
 
-### `entries.json` (the passages)
+The `entries` array is the book's passages. For very large books you can put entries in a separate file and reference it by filename: `"entries": "passages.json"`.
 
-A JSON array of entries. Each entry is one passage.
+### `components.json` (the board game components)
+
+Declares the game's physical components — Ages, Terrains, Features, Characters, Locations, Milieus, Quests. This is what powers the encounter picker in the reader app.
+
+```json
+{
+  "ages": [...],
+  "terrains": [...],
+  "features": [...],
+  "characters": [...],
+  "locations": [...],
+  "milieus": [...],
+  "quests": [...]
+}
+```
+
+If you don't use the encounter picker, omit the `"components"` key from `book.json` entirely. If multiple books in a collection use the same game components, they can all point to the same file.
 
 ---
 
@@ -306,30 +328,38 @@ Some encounters don't follow the standard response → resolution → result flo
 
 ---
 
-## Game structure — the `structure` section
+## Game components — `components.json`
 
-Adding a `structure` section to `book.json` enables the **encounter picker**: an in-app flow that lets players select their current age and encounter card type (Character, Location, Milieu, Quest) and navigates directly to the right passage.
+The `components.json` file enables the **encounter picker**: an in-app flow that lets players select their current age and encounter card type (Character, Location, Milieu, Quest) and navigates directly to the right passage.
 
-Without `structure`, the app still works — players type a passage number directly.
+Without a components file, the app still works — players type a passage number directly.
+
+Reference it from `book.json`:
 
 ```json
 {
   "schema": "book-of-infinite-tales/v1",
   "title": "...",
-  "entries": "entries.json",
-  "structure": {
-    "ages": [...],
-    "terrains": [...],
-    "features": [...],
-    "characters": [...],
-    "locations": [...],
-    "milieus": [...],
-    "quests": [...]
-  }
+  "components": "components.json",
+  "entries": [...]
 }
 ```
 
-All fields inside `structure` are optional — include only what your book supports.
+The components file itself:
+
+```json
+{
+  "ages": [...],
+  "terrains": [...],
+  "features": [...],
+  "characters": [...],
+  "locations": [...],
+  "milieus": [...],
+  "quests": [...]
+}
+```
+
+All fields are optional — include only what your book supports. You can call the file anything you like; the name in `book.json` is what matters.
 
 ### Ages
 
@@ -438,7 +468,7 @@ One passage per quest. The picker shows the quest list and navigates directly wh
 ## Committing and sharing
 
 ```
-git add book.json entries.json
+git add book.json components.json
 git commit -m "My book: first draft"
 git push
 ```
@@ -452,10 +482,11 @@ Put each in its own subdirectory:
 ```
 my-repo/
   golden-age/book.json
-  golden-age/entries.json
   grail-quest/book.json
-  grail-quest/entries.json
+  components.json
 ```
+
+Both books can share a single `components.json` at the repo root — or keep separate ones per subdirectory if the components differ.
 
 Load the second with: `your-username/my-repo@main/grail-quest`
 
