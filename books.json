@@ -1,0 +1,13 @@
+{
+  "schema": "book-of-infinite-tales/index/v1",
+  "title": "Example Book of Tales Collection",
+  "author": "Rob McArthur",
+  "description": "AI Generated Books of Tales for Tales of the Arthurian Knights.",
+  "books": [
+    {
+      "path": "la-morte-d-arthur",
+      "title": "La Morte d'Arthur",
+      "description": "The story of King Arthur and his knights of the round table, inspired by the book *La Morte d'Arthur* by Sir Thomas Malory."
+    }
+  ]
+}

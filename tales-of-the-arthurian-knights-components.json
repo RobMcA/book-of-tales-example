@@ -1,0 +1,297 @@
+{
+  "ages": [
+    { "id": "1", "name": "Golden Age of Camelot",  "startPassage": "1000", "milieuBase": 2200 },
+    { "id": "2", "name": "Quest of the Holy Grail", "startPassage": "2000", "milieuBase": 2300 },
+    { "id": "3", "name": "Final Wars of Britain",   "startPassage": "3000", "milieuBase": 2400 }
+  ],
+  "terrains": [
+    { "id": "city",     "name": "City" },
+    { "id": "forest",   "name": "Forest" },
+    { "id": "mountain", "name": "Mountain" },
+    { "id": "plains",   "name": "Plains" },
+    { "id": "swamp",    "name": "Swamp" },
+    { "id": "sea",      "name": "Sea" }
+  ],
+  "features": [
+    { "id": "wandering",  "name": "Wandering",  "offset": 1  },
+    { "id": "sorrowful",  "name": "Sorrowful",  "offset": 2  },
+    { "id": "blessed",    "name": "Blessed",    "offset": 3  },
+    { "id": "enchanted",  "name": "Enchanted",  "offset": 4  },
+    { "id": "amorous",    "name": "Amorous",    "offset": 5  },
+    { "id": "mad",        "name": "Mad",        "offset": 7  },
+    { "id": "vengeful",   "name": "Vengeful",   "offset": 10 },
+    { "id": "wise",       "name": "Wise",       "offset": 12 },
+    { "id": "cunning",    "name": "Cunning",    "offset": 13 },
+    { "id": "lost",       "name": "Lost",       "offset": 15 },
+    { "id": "desperate",  "name": "Desperate",  "offset": 20 }
+  ],
+  "characters": [
+    { "id": "king",    "name": "King",    "base": 1000 },
+    { "id": "queen",   "name": "Queen",   "base": 1100 },
+    { "id": "knight",  "name": "Knight",  "base": 1200 },
+    { "id": "squire",  "name": "Squire",  "base": 1300 },
+    { "id": "maiden",  "name": "Maiden",  "base": 1400 },
+    { "id": "hunter",  "name": "Hunter",  "base": 1500 },
+    { "id": "hermit",  "name": "Hermit",  "base": 1600 },
+    { "id": "rogue",   "name": "Rogue",   "base": 1700 },
+    { "id": "fool",    "name": "Fool",    "base": 1800 },
+    { "id": "giant",   "name": "Giant",   "base": 1900 },
+    { "id": "dwarf",   "name": "Dwarf",   "base": 2000 },
+    { "id": "faerie",  "name": "Faerie",  "base": 2100 }
+  ],
+  "milieus": [
+    {
+      "id": "perilous-cave",
+      "name": "Perilous Cave",
+      "terrainOffsets": { "city": 1,  "forest": 13, "mountain": 25, "plains": 37, "swamp": 49, "sea": 61 }
+    },
+    {
+      "id": "mysterious-castle",
+      "name": "Mysterious Castle",
+      "terrainOffsets": { "city": 2,  "forest": 14, "mountain": 26, "plains": 38, "swamp": 50, "sea": 62 }
+    },
+    {
+      "id": "strange-beast",
+      "name": "Strange Beast",
+      "terrainOffsets": { "city": 5,  "forest": 17, "mountain": 29, "plains": 41, "swamp": 53, "sea": 65 }
+    },
+    {
+      "id": "raging-storm",
+      "name": "Raging Storm",
+      "terrainOffsets": { "city": 6,  "forest": 18, "mountain": 30, "plains": 42, "swamp": 54, "sea": 66 }
+    },
+    {
+      "id": "ruthless-brigands",
+      "name": "Ruthless Brigands",
+      "terrainOffsets": { "city": 7,  "forest": 19, "mountain": 31, "plains": 43, "swamp": 55, "sea": 67 }
+    },
+    {
+      "id": "clandestine-meeting",
+      "name": "Clandestine Meeting",
+      "terrainOffsets": { "city": 8,  "forest": 20, "mountain": 32, "plains": 44, "swamp": 56, "sea": 68 }
+    },
+    {
+      "id": "abandoned-ruins",
+      "name": "Abandoned Ruins",
+      "terrainOffsets": { "city": 9,  "forest": 21, "mountain": 33, "plains": 45, "swamp": 57, "sea": 69 }
+    },
+    {
+      "id": "harrowing-battlefield",
+      "name": "Harrowing Battlefield",
+      "terrainOffsets": { "city": 11, "forest": 23, "mountain": 35, "plains": 47, "swamp": 59, "sea": 71 }
+    },
+    {
+      "id": "magnificent-feast",
+      "name": "Magnificent Feast",
+      "terrainOffsets": { "city": 12, "forest": 24, "mountain": 36, "plains": 48, "swamp": 60, "sea": 72 }
+    }
+  ],
+  "locations": [
+    {
+      "id": "avalon",
+      "name": "Avalon",
+      "passage": "2601",
+      "visitPassages": { "1": "2501", "2": "2513", "3": "2525" }
+    },
+    {
+      "id": "benwick",
+      "name": "Benwick",
+      "passage": "2602",
+      "visitPassages": { "1": "2502", "2": "2514", "3": "2526" }
+    },
+    {
+      "id": "callanish-stones",
+      "name": "Callanish Stones",
+      "passage": "2603",
+      "visitPassages": { "1": "2503", "2": "2515", "3": "2527" }
+    },
+    {
+      "id": "camelot",
+      "name": "Camelot",
+      "passage": "2604",
+      "visitPassages": { "1": "2504", "2": "2516", "3": "2528" }
+    },
+    {
+      "id": "corbenic",
+      "name": "Corbenic",
+      "passage": "2605",
+      "visitPassages": { "1": "2505", "2": "2517", "3": "2529" }
+    },
+    {
+      "id": "morgans-castle",
+      "name": "Morgan's Castle",
+      "passage": "2606",
+      "visitPassages": { "1": "2506", "2": "2518", "3": "2530" }
+    },
+    {
+      "id": "orkney",
+      "name": "Orkney",
+      "passage": "2607",
+      "visitPassages": { "1": "2507", "2": "2519", "3": "2531" }
+    },
+    {
+      "id": "stonehenge",
+      "name": "Stonehenge",
+      "passage": "2608",
+      "visitPassages": { "1": "2508", "2": "2520", "3": "2532" }
+    },
+    {
+      "id": "abbey-of-kells",
+      "name": "The Abbey of Kells",
+      "passage": "2609",
+      "visitPassages": { "1": "2509", "2": "2521", "3": "2533" }
+    },
+    {
+      "id": "cave-of-merlin",
+      "name": "Cave of Merlin",
+      "passage": "2610",
+      "visitPassages": { "1": "2510", "2": "2522", "3": "2534" }
+    },
+    {
+      "id": "green-chapel",
+      "name": "The Green Chapel",
+      "passage": "2611",
+      "visitPassages": { "1": "2511", "2": "2523", "3": "2535" }
+    },
+    {
+      "id": "underwater-palace",
+      "name": "The Underwater Palace",
+      "passage": "2612",
+      "visitPassages": { "1": "2512", "2": "2524", "3": "2536" }
+    }
+  ],
+  "quests": [
+    { "id": "dragon-slayer",            "name": "Dragon Slayer",            "passage": "1009" },
+    { "id": "journey-into-the-unknown", "name": "Journey into the Unknown", "passage": "1011" },
+    { "id": "kingdom-of-destiny",       "name": "Kingdom of Destiny",       "passage": "1016" },
+    { "id": "resplendent-beauty",       "name": "Resplendent Beauty",       "passage": "1018" },
+    { "id": "artifacts-of-power",       "name": "Artifacts of Power",       "passage": "1022" },
+    { "id": "quest-for-the-white-hart", "name": "Quest for the White Hart", "passage": "1024" },
+    { "id": "the-ghost-king",           "name": "The Ghost King",           "passage": "1040" },
+    { "id": "saxon-raiders",            "name": "Saxon Raiders",            "passage": "1109" },
+    { "id": "the-invisible-knight",     "name": "The Invisible Knight",     "passage": "1111" },
+    { "id": "magnificent-deeds",        "name": "Magnificent Deeds",        "passage": "1116" },
+    { "id": "a-need-for-wisdom",        "name": "A Need for Wisdom",        "passage": "1118" },
+    { "id": "visit-to-the-otherworld",  "name": "Visit to the Otherworld",  "passage": "1122" },
+    { "id": "ancient-treaty",           "name": "Ancient Treaty",           "passage": "1124" },
+    { "id": "the-loathsome-damsel",     "name": "The Loathsome Damsel",     "passage": "1137" },
+    { "id": "the-knight-of-swords",     "name": "The Knight of Swords",     "passage": "1209" },
+    { "id": "the-three-maidens",        "name": "The Three Maidens",        "passage": "1211" },
+    { "id": "lost-dwarfs",              "name": "Lost Dwarfs",              "passage": "1218" },
+    { "id": "the-crystal-keep",         "name": "The Crystal Keep",         "passage": "1224" },
+    { "id": "the-strange-bed",          "name": "The Strange Bed",          "passage": "1239" },
+    { "id": "blessed-companion",        "name": "Blessed Companion",        "passage": "1309" },
+    { "id": "dark-plague",              "name": "Dark Plague",              "passage": "1311" },
+    { "id": "baleful-warlock",          "name": "Baleful Warlock",          "passage": "1316" },
+    { "id": "the-bridge-of-death",      "name": "The Bridge of Death",      "passage": "1318" },
+    { "id": "the-vision",               "name": "The Vision",               "passage": "1324" }
+  ],
+  "treasures": [
+    { "id": "skein-of-crossing",          "name": "Skein of Crossing"          },
+    { "id": "holy-lance",                  "name": "Holy Lance"                  },
+    { "id": "shield-of-evalach",           "name": "Shield of Evalach"           },
+    { "id": "sword-of-the-strange-belt",   "name": "Sword of the Strange Belt"   },
+    { "id": "necklace-of-the-lake",        "name": "Necklace of the Lake"        },
+    { "id": "rhongomyniad",                "name": "Rhongomyniad"                },
+    { "id": "stone-of-giramphiel",         "name": "Stone of Giramphiel"         },
+    { "id": "staff-of-merlin",             "name": "Staff of Merlin"             },
+    { "id": "clarent",                     "name": "Clarent"                     },
+    { "id": "white-dun-mane",              "name": "White Dun-Mane"              },
+    { "id": "faerie-ring",                 "name": "Faerie Ring"                 },
+    { "id": "cronish-harp",                "name": "Cronish Harp"                },
+    { "id": "cauldron-of-annwyn",          "name": "Cauldron of Annwyn"          },
+    { "id": "goswhit",                     "name": "Goswhit"                     },
+    { "id": "prydwen",                     "name": "Prydwen"                     },
+    { "id": "unfailing-bow",               "name": "Unfailing Bow"               },
+    { "id": "green-sash",                  "name": "Green Sash"                  },
+    { "id": "carnwennan",                  "name": "Carnwennan"                  }
+  ],
+  "renown": [
+    { "id": "divinity", "name": "Divinity" },
+    { "id": "romance",  "name": "Romance"  },
+    { "id": "villainy", "name": "Villainy" }
+  ],
+  "skills": [
+    { "id": "warfare",        "name": "Warfare",        "category": "Martial"    },
+    { "id": "sword-shield",   "name": "Sword & Shield", "category": "Martial"    },
+    { "id": "mounted",        "name": "Mounted",        "category": "Martial"    },
+    { "id": "piety",          "name": "Piety",          "category": "Spiritual"  },
+    { "id": "wisdom",         "name": "Wisdom",         "category": "Spiritual"  },
+    { "id": "magic",          "name": "Magic",          "category": "Spiritual"  },
+    { "id": "diplomacy",      "name": "Diplomacy",      "category": "Courtly"    },
+    { "id": "cunning",        "name": "Cunning",        "category": "Courtly"    },
+    { "id": "honor",          "name": "Honor",          "category": "Courtly"    },
+    { "id": "nature-lore",    "name": "Nature Lore",    "category": "Wilderness" },
+    { "id": "endure-hardship","name": "Endure Hardship","category": "Wilderness" },
+    { "id": "hunting",        "name": "Hunting",        "category": "Wilderness" }
+  ],
+  "storyTokens": [
+    { "number": 1  },
+    { "number": 2  },
+    { "number": 3  },
+    { "number": 4,  "note": "Passage 2134" },
+    { "number": 5,  "note": "Age 3 → Token 6" },
+    { "number": 6,  "note": "Forest" },
+    { "number": 7  },
+    { "number": 8,  "note": "Any City" },
+    { "number": 9,  "note": "Fay Knight" },
+    { "number": 10, "note": "Cancels Unhorsed" },
+    { "number": 11, "note": "Move 1" },
+    { "number": 12 },
+    { "number": 13 },
+    { "number": 14 },
+    { "number": 15 },
+    { "number": 16 },
+    { "number": 17 },
+    { "number": 18 },
+    { "number": 19 },
+    { "number": 20 },
+    { "number": 21, "note": "Oath: −3 Renown" },
+    { "number": 22, "note": "Lose a Status" },
+    { "number": 23, "note": "Treasure" },
+    { "number": 24, "note": "+1 Renown" },
+    { "number": 25, "note": "Passage 1054" },
+    { "number": 26, "note": "Passage 2712" },
+    { "number": 27 },
+    { "number": 28 },
+    { "number": 29 },
+    { "number": 30 }
+  ],
+  "statuses": [
+    { "id": "accompanied",  "name": "Accompanied"  },
+    { "id": "accursed",     "name": "Accursed"     },
+    { "id": "atoning",      "name": "Atoning"      },
+    { "id": "beast-form",   "name": "Beast Form"   },
+    { "id": "beloved",      "name": "Beloved"      },
+    { "id": "betrothed",    "name": "Betrothed"    },
+    { "id": "blessed",      "name": "Blessed"      },
+    { "id": "covetous",     "name": "Covetous"     },
+    { "id": "despairing",   "name": "Despairing"   },
+    { "id": "determined",   "name": "Determined"   },
+    { "id": "doomed",       "name": "Doomed"       },
+    { "id": "enraged",      "name": "Enraged"      },
+    { "id": "ensorcelled",  "name": "Ensorcelled"  },
+    { "id": "esteemed",     "name": "Esteemed"     },
+    { "id": "imprisoned",   "name": "Imprisoned",   "encounters": [
+        { "label": "Attempt to escape",  "passage": "2537" },
+        { "label": "Attempt to rescue",  "passage": "2544" }
+      ]
+    },
+    { "id": "licentious",   "name": "Licentious"   },
+    { "id": "lost",         "name": "Lost"         },
+    { "id": "mad",          "name": "Mad"          },
+    { "id": "monarch",      "name": "Monarch"      },
+    { "id": "obsessed",     "name": "Obsessed"     },
+    { "id": "pariah",       "name": "Pariah"       },
+    { "id": "plague-ridden","name": "Plague-Ridden"},
+    { "id": "pursued",      "name": "Pursued",      "encounters": [
+        { "label": "Fail to evade", "passage": "2550" }
+      ]
+    },
+    { "id": "scorned",      "name": "Scorned"      },
+    { "id": "smitten",      "name": "Smitten"      },
+    { "id": "unhorsed",     "name": "Unhorsed"     },
+    { "id": "wounded",      "name": "Wounded"      }
+  ],
+  "epiloguePassage": "9999"
+}
