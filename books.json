@@ -2,7 +2,7 @@
   "schema": "book-of-infinite-tales/index/v1",
   "title": "Example Book of Tales Collection",
   "author": "Rob McArthur",
-  "description": "AI Generated Books of Tales for Tales of the Arthurian Knights.",
+  "description": "AI-generated Books of Tales for the board game Tales of the Arthurian Knights, spanning the full sweep of the Arthurian legend from Camelot's founding to the ruin of the Round Table.",
   "books": [
     {
       "path": "la-morte-d-arthur",
