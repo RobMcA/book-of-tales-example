@@ -34,8 +34,7 @@ This file at the repo root defines all the game components shared across books i
 
 ## Creating your own books
 
-To create your own collection, fork the [Book of Tales Template](https://github.com/RobMcA/Book-of-Tales-Template). It contains:
+To create your own collection, fork the [Book of Tales Template](https://github.com/Book-of-Infinite-Tales/Book-of-Tales-Template). It contains:
 
-- Setup and book-creation AI prompts
 - A complete [format reference](https://github.com/RobMcA/Book-of-Tales-Template/blob/main/docs/book_format.md) covering every field in `book.json` and `components.json`
 - Helper scripts and an example book to get you started
